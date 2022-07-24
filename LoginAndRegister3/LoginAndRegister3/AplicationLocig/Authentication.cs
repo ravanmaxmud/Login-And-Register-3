@@ -53,44 +53,91 @@ namespace Login_and_Register.Aplication_Locig
                 catch
                 {
                     isExpcetionExist = true;
-                    Console.WriteLine("Daxil Etdiyiniz Inputda Yanlisliqlar Var");
+                    Console.WriteLine("There are errors in the input you entered");
                 }
             } while (isExpcetionExist || !UserValidation.IsNameCorrect(firstName));
             return firstName;
         }
         public static string GetLastName()
         {
-            Console.Write("Please Enter User's surname : ");
-            string lastName = Console.ReadLine();
-            while (!UserValidation.IsLastNNameCorrect(lastName))
+            string lastName = null;
+            bool isExpcetionExist;
+            do
             {
-                Console.Write("Please enter correct user's surname : ");
-                lastName = Console.ReadLine();
-            }
+                try
+                {
+                    Console.Write("Please enter user's LaastName : ");
+                    lastName = Console.ReadLine();
+                    if (lastName == "")
+                    {
+                        throw new Exception();
+                    }
+                    isExpcetionExist = false;
+                }
+                catch
+                {
+                    isExpcetionExist = true;
+                    Console.WriteLine("There are errors in the input you entered");
+                }
+            } while (isExpcetionExist || !UserValidation.IsLastNNameCorrect(lastName));
             return lastName;
 
         }
         public static string GetEmail()
         {
-            Console.Write("Please Enter User's Email : ");
-            string email = Console.ReadLine();
-            while (!UserValidation.IsMailCorrect(email))
+            //Console.Write("Please Enter User's Email : ");
+            //string email = Console.ReadLine();
+            //while (!UserValidation.IsMailCorrect(email))
+            //{
+            //    Console.Write("Please enter correct user's Email : ");
+            //    email = Console.ReadLine();
+            //}
+            //return email;
+            string email = null;
+            bool isExpcetionExist;
+            do
             {
-                Console.Write("Please enter correct user's Email : ");
-                email = Console.ReadLine();
-            }
+                try
+                {
+                    Console.Write("Please enter user's Email : ");
+                    email = Console.ReadLine();
+                    if (email == "")
+                    {
+                        throw new Exception();
+                    }
+                    isExpcetionExist = false;
+                }
+                catch
+                {
+                    isExpcetionExist = true;
+                    Console.WriteLine("There are errors in the input you entered");
+                }
+            } while (isExpcetionExist || !UserValidation.IsMailCorrect(email));
             return email;
 
         }
         public static string GetPassword()
         {
-            Console.Write("Please Enter User's Password : ");
-            string password = Console.ReadLine();
-            while (!UserValidation.IsPasswordCorrect(password))
+            string password = null;
+            bool isExpcetionExist;
+            do
             {
-                Console.Write("Please enter correct user's Password : ");
-                password = Console.ReadLine();
-            }
+                try
+                {
+                    Console.Write("Please enter user's Email : ");
+                    password = Console.ReadLine();
+                    if (password == "")
+                    {
+                        throw new Exception();
+                    }
+                    isExpcetionExist = false;
+                }
+                catch
+                {
+                    isExpcetionExist = true;
+                    Console.WriteLine("There are errors in the input you entered");
+                }
+            } while (isExpcetionExist || !UserValidation.IsPasswordCorrect(password));
             return password;
 
         }
@@ -116,9 +163,12 @@ namespace Login_and_Register.Aplication_Locig
                 }
                 else
                 {
-                    Console.WriteLine($"User Succesifully Login : {user.GetShortInfo()}");
-
+                    Console.WriteLine("Please Enter Correctly");
                 }
+            }
+            else
+            {
+                Console.WriteLine("Please Enter Correctly");
             }
         }
     }

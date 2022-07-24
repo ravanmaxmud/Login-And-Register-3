@@ -18,9 +18,13 @@ namespace Login_and_Register.DataBase.Models
         {
 
         }
+        public Admin(string firstName , string lastName) : base(firstName , lastName)
+        {
+
+        }
         public override string GetShortInfo()
         {
-            return $"Hello Dear Admin  Name :{FirstName} LastName :{LastName} Email :{Email}";
+            return $"Hello Dear Admin Id :{Id}  Name :{FirstName} LastName :{LastName} Email :{Email}";
         }
     }
 }

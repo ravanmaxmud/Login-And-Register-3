@@ -13,7 +13,7 @@ namespace Login_and_Register.Aplication_Locig
         public static void UserPanel(string email)
         {
             User user = UserRepo.GetUserByEmail(email);
-            Console.WriteLine("Welcome your account", user.GetShortInfo());
+            Console.WriteLine(user.GetShortInfo());
             while (true)
             {
                 Console.WriteLine("Please Enter Command  /logout or /updateInfo");
@@ -55,7 +55,8 @@ namespace Login_and_Register.Aplication_Locig
         public static void SuperAdminPanel(string email)
         {
             User user = UserRepo.GetUserByEmail(email);
-            Console.WriteLine("Welcome Dear Admin", user.GetShortInfo());
+            //Console.WriteLine("Welcome Dear Admin", user.GetShortInfo());
+            Console.WriteLine(user.GetShortInfo());
 
             while (true)
             {
@@ -134,14 +135,16 @@ namespace Login_and_Register.Aplication_Locig
                     {
                         Console.WriteLine("Enter User Mail");
                         string mail = Console.ReadLine();
-                        if (mail == null)
+                        User targetUser = UserRepo.GetUserByEmail(mail);
+                        if (targetUser == null)
                         {
                             Console.WriteLine("Please Enter Correct User Mail");
                         }
                         else
                         {
 
-                            UserRepo.RemoveUserForMail(mail);
+                            //UserRepo.RemoveUserForMail(mail);
+                            UserRepo.Delete(targetUser);
                             Console.WriteLine("User Removed Succesifully");
                         }
                     }
@@ -160,7 +163,7 @@ namespace Login_and_Register.Aplication_Locig
                         {
                             if (userInfo is Admin)
                             {
-                                Console.WriteLine(userInfo.GetInfo());
+                                Console.WriteLine(userInfo.GetShortInfo());
                             }
                         }
                     }
@@ -175,19 +178,26 @@ namespace Login_and_Register.Aplication_Locig
                         Console.WriteLine("Please Enter Admin Email Who You Want to Update");
                         string mail = Console.ReadLine();
                         User targetUser = UserRepo.GetUserByEmail(mail);
-                        if (targetUser == null)
+                        if (targetUser.Email == email)
                         {
-                            Console.WriteLine("Entered email not found.Please Try Again");
+                            Console.WriteLine("Deyismek isediyiniz admin ile daxil olmusunuz");
                         }
-                        else if (!(targetUser is Admin))
+                        else if (targetUser == null)
                         {
-                            Console.WriteLine("This Not Admin Mail");
+                            Console.WriteLine("Admin tapilmadi");
                         }
                         else
                         {
-                            User updateUser = new User(Authentication.GetFirstName(), Authentication.GetLastName());
-                            UserRepo.Update(mail, updateUser);
-                            Console.WriteLine("Admin Has Been Updated");
+                            if (targetUser is Admin)
+                            {
+                                Admin uppAdmin = new Admin(Authentication.GetFirstName(), Authentication.GetLastName());
+                                UserRepo.Update(mail, uppAdmin);
+                                Console.WriteLine("Admin update olundu");
+                            }
+                            else if (targetUser is User)
+                            {
+                                Console.WriteLine("Bu emaile mexsus istifadeci Userdir...");
+                            }
                         }
 
                     }

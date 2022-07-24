@@ -49,7 +49,7 @@ namespace Login_and_Register.DataBase.Models
         }
         public virtual string GetShortInfo()
         {
-            return $"Hello Dear User  Name :{FirstName} LastName :{LastName} Email :{Email}";
+            return $"Hello Dear User Id :{Id}  Name :{FirstName} LastName :{LastName} Email :{Email}";
         }
     }
 }

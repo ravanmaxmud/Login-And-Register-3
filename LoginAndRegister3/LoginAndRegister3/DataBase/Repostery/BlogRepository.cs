@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoginAndRegister3.DataBase.Repostery.Common
+namespace LoginAndRegister3.DataBase.Repostery.Common 
 {
     public class BlogRepository :Repository<Blog,string>
     {

@@ -13,7 +13,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
 {
     class BlogService
     {
-       public static Repository<Blog, string> blogRepo = new Repository<Blog, string>();
+        public static Repository<Blog, string> blogRepo = new Repository<Blog, string>();
         public static Repository<Comment, int> commentRepo = new Repository<Comment, int>();
         public static string GetBlogTitle()
         {
@@ -66,7 +66,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
         public static void ShowBlogs()
         {
             List<Blog> blogss = blogRepo.GetAll();
-            List<Comment> comments= commentRepo.GetAll();
+            List<Comment> comments = commentRepo.GetAll();
             foreach (Blog blog in blogss)
             {
                 foreach (Comment comment in comments)
@@ -95,19 +95,19 @@ namespace LoginAndRegister3.AplicationLocig.Services
                 //if (blog.BlogStatus == BlogStatus.Sended)
                 //{
 
-                    foreach (Comment comment in comments)
+                foreach (Comment comment in comments)
+                {
+
+
+                    if (comment.blog == blog)
                     {
 
-
-                        if (comment.blog == blog)
-                        {
-
-                            commentsCount.Add(blog, comment);
-
-                        }
-
+                        commentsCount.Add(blog, comment);
 
                     }
+
+
+                }
                 //}
             }
             foreach (KeyValuePair<Blog, Comment> keyValuePair in commentsCount)
@@ -121,10 +121,10 @@ namespace LoginAndRegister3.AplicationLocig.Services
         }
         public static void FindBlogByCode()
         {
-            List<Blog> blogs1 = blogRepo.GetAll();
             Console.WriteLine("Please Enter Searched Blog Code");
             string id = Console.ReadLine();
-            Blog blogs= blogRepo.GetById(id);
+            List<Blog> blogs1 = blogRepo.GetAll();
+            Blog blogs = blogRepo.GetById(id);
             if (blogs == null)
             {
                 Console.WriteLine("Blogs Not Found");
@@ -133,7 +133,10 @@ namespace LoginAndRegister3.AplicationLocig.Services
             {
                 foreach (Blog blog in blogs1)
                 {
-                    Console.WriteLine($"{blog.GetInfo()}");
+                    if (id == blog.Id)
+                    {
+                        Console.WriteLine($"{blog.GetInfo()}");
+                    }
                 }
             }
         }

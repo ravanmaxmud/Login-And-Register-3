@@ -10,6 +10,7 @@ namespace Login_and_Register.Aplication_Locig
 {
     class UserValidation
     {
+        UserRepo userRepo = new UserRepo();
         public static bool IsNameCorrect(string firstName)
         {
             if (Regex.IsMatch(firstName, @"^(?=[A-Z]{1})([A-Za-z]{3,30})$"))
@@ -30,7 +31,8 @@ namespace Login_and_Register.Aplication_Locig
         }
         public static bool IsMailCorrect(string mail)
         {
-            if (Regex.IsMatch(mail, @"^[a-zA-Z0-9_?.?]{10,30}@code\.edu\.az") && UserRepo.IsMailUnical(mail))
+            UserRepo userRepo = new UserRepo();
+            if (Regex.IsMatch(mail, @"^[a-zA-Z0-9_?.?]{10,30}@code\.edu\.az") && userRepo.IsMailUnical(mail))
             {
                 return true;
             }
@@ -59,7 +61,8 @@ namespace Login_and_Register.Aplication_Locig
         }
         public static bool IsLoginCorrect(string email, string password)
         {
-            if (UserRepo.IsUserExistByEmailAndPassword(email, password))
+            UserRepo userRepo = new UserRepo();
+            if (userRepo.IsUserExistByEmailAndPassword(email, password))
             {
                 return true;
             }

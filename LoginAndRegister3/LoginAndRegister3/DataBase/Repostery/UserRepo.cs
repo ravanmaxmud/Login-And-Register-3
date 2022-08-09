@@ -1,14 +1,16 @@
 ﻿using Login_and_Register.DataBase.Models;
+using LoginAndRegister3.DataBase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LoginAndRegister3.DataBase.Repostery.Common;
 
 namespace Login_and_Register.DataBase.Repostery
 {
 
-    class UserRepo
+    class UserRepo : Repository<User, int>
     {
         private static int _idCounter;
 
@@ -20,45 +22,50 @@ namespace Login_and_Register.DataBase.Repostery
                 return _idCounter;
             }
         }
-
-        private static List<User> Users { get; set; } = new List<User>()
+        //public UserRepo()
+        //{
+        //    DbContent.AddRange(new List<User>()
+        //    {  new Admin("Super", "Admin", "admin@code.edu.az", "123321"),
+        //       new Admin("Aylo","Maqa","maqa@code.edu.az","123321"),
+        //       new Moderator("Ceyhun","Hacizade","ceyhun@code.edu.az","123321"),
+        //       new User("Revan", "Mahmood", "revan@code.edu.az", "123321"),
+        //       new User("Revan", "Mahmood", "eshqin@code.edu.az", "123321")
+        //    });
+        //}
+        static UserRepo()
         {
-           new Admin("Super","Admin","admin@code.edu.az","Admin123321"),
-           new User("Revan","Mahmmod","revan.mahmood@code.edu.az","Revan123321")
-        };
-
-        public static User AddUser(string firstName, string lastName, string email, string password)
+            SeedUsers();
+        }
+        public static void SeedUsers()
         {
-            User userInfo = new User(firstName, lastName, email, password, IdCounter);
-            Users.Add(userInfo);
+            DbContent.Add(new Admin("Super", "Admin", "admin@code.edu.az", "123321"));
+            DbContent.Add(new Admin("Aylo", "Maqa", "maqa@code.edu.az", "123321"));
+            DbContent.Add(new Moderator("Ceyhun", "Hacizade", "ceyhun@code.edu.az", "123321"));
+            DbContent.Add(new User("Revan", "Mahmood", "revan@code.edu.az", "123321"));
+            DbContent.Add(new User("Revan", "Mahmood", "eshqin@code.edu.az", "123321"));
+        }
+
+        public User AddUser(string firstName, string lastName, string email, string password)
+        {
+            User userInfo = new User(firstName, lastName, email, password);
+            DbContent.Add(userInfo);
             return userInfo;
 
         }
-
-        public static User AddUser(string firstName, string lastName, string email, string password, int id)
+        public User Update(string email, User user)
         {
-            User userInfo = new User(firstName, lastName, email, password, id);
-            Users.Add(userInfo);
-            return userInfo;
-
-        }
-        public static User Update(string email, User user)
-        {
-            User targetUser = UserRepo.GetUserByEmail(email);
-
+            UserRepo userRepo = new UserRepo();
+            User targetUser = userRepo.GetUserByEmail(email);
             targetUser.FirstName = user.FirstName;
             targetUser.LastName = user.LastName;
-
-
             return targetUser;
-
         }
-        public static User Update(string email, Admin admin)
+        public User Update(string email, Admin admin)
         {
-            User targetUser = UserRepo.GetUserByEmail(email);
+            UserRepo userRepo = new UserRepo();
+            User targetUser = userRepo.GetUserByEmail(email);
             targetUser.FirstName = admin.FirstName;
             targetUser.LastName = admin.LastName;
-
             return targetUser;
         }
         //public static void RemoveAdmin(string email, UserInfo user)
@@ -67,36 +74,25 @@ namespace Login_and_Register.DataBase.Repostery
         //    targetUser.IsSuperAdmin = false;
         //}
 
-        public static User Add(User user)
+        public User Add(Admin admin)
         {
-            Users.Add(user);
-            return user;
-        }
-        public static User Add(Admin admin)
-        {
-            Users.Add(admin);
+            DbContent.Add(admin);
             return admin;
         }
-
-        public static void Delete(User user)
+        public bool IsMailUnical(string mail)
         {
-            Users.Remove(user);
-        }
-
-        public static bool IsMailUnical(string mail)
-        {
-            for (int i = 0; i < Users.Count; i++)
+            for (int i = 0; i < DbContent.Count; i++)
             {
-                if (Users[i].Email == mail)
+                if (DbContent[i].Email == mail)
                 {
                     return false;
                 }
             }
             return true;
         }
-        public static User GetUserByEmailAndPassword(string email, string password)
+        public User GetUserByEmailAndPassword(string email, string password)
         {
-            foreach (User user in Users)
+            foreach (User user in DbContent)
             {
                 if (user.Email == email && user.Password == password)
                 {
@@ -105,9 +101,9 @@ namespace Login_and_Register.DataBase.Repostery
             }
             return null;
         }
-        public static bool IsUserExistByEmailAndPassword(string email, string password)
+        public bool IsUserExistByEmailAndPassword(string email, string password)
         {
-            foreach (User user in Users)
+            foreach (User user in DbContent)
             {
                 if (user.Email == email && user.Password == password)
                 {
@@ -116,9 +112,9 @@ namespace Login_and_Register.DataBase.Repostery
             }
             return false;
         }
-        public static User GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
-            foreach (User user in Users)
+            foreach (User user in DbContent)
             {
                 if (user.Email == email)
                 {
@@ -127,20 +123,26 @@ namespace Login_and_Register.DataBase.Repostery
             }
             return null;
         }
-        public static List<User> GetAll()
+        public void RemoveUserForMail(string mail)
         {
-            return Users;
-        }
-        public static void RemoveUserForMail(string mail)
-        {
-            for (int i = 0; i < Users.Count; i++)
+            for (int i = 0; i < DbContent.Count; i++)
             {
-                if (Users[i].Email == mail)
+                if (DbContent[i].Email == mail)
                 {
-                    Users.RemoveAt(i);
+                    DbContent.RemoveAt(i);
                 }
             }
-
         }
+        //public static void ShowAdmins()
+        //{ 
+        //  Repository<User,int> repository = new Repository<User,int>();
+        //    List<User> users = repository.GetAll();
+        //    foreach (User user in users) {
+        //        if (user is Admin)
+        //        {
+        //            Console.WriteLine(user.GetInfo());
+        //        }
+        //    }
+        //}
     }
 }

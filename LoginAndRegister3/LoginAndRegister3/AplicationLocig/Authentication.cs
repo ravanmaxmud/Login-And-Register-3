@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LoginAndRegister3.DataBase.Repostery.Common;
+using LoginAndRegister3.DataBase.Models;
 
 namespace Login_and_Register.Aplication_Locig
 {
@@ -27,7 +29,8 @@ namespace Login_and_Register.Aplication_Locig
             }
             if (confirimPassword == password)
             {
-                User user = UserRepo.AddUser(firstName, lastName, email, password);
+                UserRepo userRepo = new UserRepo();
+                User user = userRepo.AddUser(firstName, lastName, email, password);
                 Console.WriteLine("User aded the system" + user.GetShortInfo());
                 Console.WriteLine("You successfully registered, now you can login with your new account!");
             }
@@ -85,14 +88,6 @@ namespace Login_and_Register.Aplication_Locig
         }
         public static string GetEmail()
         {
-            //Console.Write("Please Enter User's Email : ");
-            //string email = Console.ReadLine();
-            //while (!UserValidation.IsMailCorrect(email))
-            //{
-            //    Console.Write("Please enter correct user's Email : ");
-            //    email = Console.ReadLine();
-            //}
-            //return email;
             string email = null;
             bool isExpcetionExist;
             do
@@ -124,7 +119,7 @@ namespace Login_and_Register.Aplication_Locig
             {
                 try
                 {
-                    Console.Write("Please enter user's Email : ");
+                    Console.Write("Please enter user's Password : ");
                     password = Console.ReadLine();
                     if (password == "")
                     {
@@ -143,6 +138,7 @@ namespace Login_and_Register.Aplication_Locig
         }
         public static void Login()
         {
+            UserRepo userRepo = new UserRepo();
             Console.WriteLine();
             Console.Write("Please Enter User Email : ");
             string email = Console.ReadLine();
@@ -150,12 +146,17 @@ namespace Login_and_Register.Aplication_Locig
             Console.Write("Please Enter User Password : ");
             string password = Console.ReadLine();
             Console.WriteLine();
-            if (UserRepo.IsUserExistByEmailAndPassword(email, password))
+            User user = userRepo.GetUserByEmailAndPassword(email, password);
+            if (user != null)
             {
-                User user = UserRepo.GetUserByEmail(email);
+                DashBoard.CurrentUser = user;
                 if (user is Admin)
                 {
                     DashBoard.SuperAdminPanel(email);
+                }
+                else if(user is Moderator)
+                {
+                    DashBoard.ModeratorPanel(email);
                 }
                 else if (user is User)
                 {

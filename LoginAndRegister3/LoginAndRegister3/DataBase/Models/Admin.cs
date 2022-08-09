@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoginAndRegister3.DataBase.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace Login_and_Register.DataBase.Models
         {
 
         }
-        public Admin(string firstName, string lastName, string email, string password, int id)
-        : base(firstName, lastName, email, password, id)
+        public Admin(string firstName, string lastName, string email, string password,int id)
+        : base(firstName, lastName, email, password)
         {
 
         }

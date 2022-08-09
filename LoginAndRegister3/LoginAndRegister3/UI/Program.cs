@@ -1,4 +1,7 @@
 ﻿using Login_and_Register.Aplication_Locig;
+using Login_and_Register.DataBase.Models;
+using LoginAndRegister3.AplicationLocig.Services;
+using LoginAndRegister3.DataBase.Repostery.Common;
 using System;
 
 namespace Login_and_Register
@@ -16,6 +19,8 @@ namespace Login_and_Register
                 Console.WriteLine("Thees are Our Command");
                 Console.WriteLine("/register");
                 Console.WriteLine("/login");
+                Console.WriteLine("/show-blogs-with-comments");
+                Console.WriteLine("/find-blog-by-code");
                 Console.WriteLine("/exit");
 
                 Console.Write("Please Enter Command :");
@@ -27,6 +32,15 @@ namespace Login_and_Register
                 else if (command == "/login")
                 {
                     Authentication.Login();
+                }
+                else if (command== "/show-blogs-with-comments")
+                {
+                    BlogService.ShowBlogs();
+                    BlogService.ShowBlogsWithComments();
+                }
+                else if (command == "/find-blog-by-code")
+                {
+                    BlogService.FindBlogByCode();
                 }
                 else if (command == "/exit")
                 {

@@ -66,58 +66,14 @@ namespace LoginAndRegister3.AplicationLocig.Services
         public static void ShowBlogs()
         {
             List<Blog> blogss = blogRepo.GetAll();
-            List<Comment> comments = commentRepo.GetAll();
             foreach (Blog blog in blogss)
             {
-                foreach (Comment comment in comments)
+                Console.WriteLine(blog.GetInfo());
+                foreach (Comment comment in commentRepo.GetAll(c=>c.blog == blog))
                 {
-                    if (comment.blog != blog)
-                    {
-
-                        Console.WriteLine(blog.GetInfo());
-                    }
-
+                    Console.WriteLine(comment.GetInfo());
                 }
             }
-        }
-        public static void ShowBlogsWithComments()
-        {
-            Dictionary<Blog, Comment> commentsCount = new Dictionary<Blog, Comment>()
-            {
-
-            };
-            List<Blog> blogs = blogRepo.GetAll();
-            List<Comment> comments = CommentRepository.GetComments();
-
-
-            foreach (Blog blog in blogs)
-            {
-                //if (blog.BlogStatus == BlogStatus.Sended)
-                //{
-
-                foreach (Comment comment in comments)
-                {
-
-
-                    if (comment.blog == blog)
-                    {
-
-                        commentsCount.Add(blog, comment);
-
-                    }
-
-
-                }
-                //}
-            }
-            foreach (KeyValuePair<Blog, Comment> keyValuePair in commentsCount)
-            {
-                Console.WriteLine(keyValuePair.Key.GetInfo() + " " + keyValuePair.Value.GetInfo());
-            }
-            //foreach(KeyValuePair<Blog, Comment> blog in commentsCount)
-            //{
-            //    Console.WriteLine(blog.Key.GetBlogInfo() + " " + blog.Value.GetCommentInfo());
-            //}
         }
         public static void FindBlogByCode()
         {

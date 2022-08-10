@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoginAndRegister3.DataBase
+namespace LoginAndRegister3.DataBase.Models
 {
-    internal class Inbox
+     class Inbox
     {
     }
 }

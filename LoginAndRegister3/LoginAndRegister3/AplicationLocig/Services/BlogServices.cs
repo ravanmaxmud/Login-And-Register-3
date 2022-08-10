@@ -87,7 +87,18 @@ namespace LoginAndRegister3.AplicationLocig.Services
             {
                 if (blog.Title.Contains(filtredTitle))
                 {
-                    if (blog.BlogStatus == BlogStatus.Sended)
+                    if (blog.BlogStatus == BlogStatus.Accepted)
+                    {
+                        Console.WriteLine(blog.GetInfo());
+                        foreach (Comment comment in commentRepo.GetAll(c => c.blog == blog))
+                        {
+                            Console.WriteLine(comment.GetInfo());
+                        }
+                    }
+                }
+                else if (blog.FromUser.FirstName.Contains(filtredTitle))
+                {
+                    if (blog.BlogStatus == BlogStatus.Accepted)
                     {
                         Console.WriteLine(blog.GetInfo());
                         foreach (Comment comment in commentRepo.GetAll(c => c.blog == blog))

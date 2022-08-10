@@ -20,7 +20,7 @@ namespace Login_and_Register.Aplication_Locig
         public static void UserPanel(string email)
         {
             //Dictionary<BlogRepository, CommentRepository> keys = new Dictionary<BlogRepository, CommentRepository>();
-            Repository<Comment, int> commentRepo = new Repository<Comment, int>();
+            //Repository<Comment, int> commentRepo = new Repository<Comment, int>();
             BlogRepository blogRepository = new BlogRepository();
             Repository<Blog, string> blogrepo = new Repository<Blog, string>();
             UserRepo userRepo = new UserRepo();
@@ -213,9 +213,9 @@ namespace Login_and_Register.Aplication_Locig
                 Repository<Blog, string> blogRepo = new Repository<Blog, string>();
                 if (user is Moderator)
                 {
-                    Console.WriteLine("Command : /showBlog or /logout or  /AcceptBlog or  /RejectBlog");
+                    Console.WriteLine("Command : /show-auditing-blogs or /logout or  /AcceptBlog or  /RejectBlog");
                     string command = Console.ReadLine();
-                    if (command == "/showBlog")
+                    if (command == "/show-auditing-blogs")
                     {
                         List<Blog> blogs = blogRepo.GetAll();
                         int counter = 1;

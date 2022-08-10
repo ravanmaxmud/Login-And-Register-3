@@ -40,6 +40,17 @@ namespace LoginAndRegister3.DataBase.Repostery.Common
             }
             return list;
         }
+        public TEntity Get(Predicate<TEntity> predicate)
+        { 
+            foreach (TEntity entity in DbContent)
+            {
+                if (predicate(entity))
+                {
+                    return entity;
+                }
+            }
+            return null;
+        }
         public TEntity GetById(Tid id)
         {
             foreach (TEntity entry in DbContent)

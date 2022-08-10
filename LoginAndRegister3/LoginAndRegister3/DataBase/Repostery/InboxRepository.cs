@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoginAndRegister3.DataBase.Repostery
 {
-    internal class InboxRepository
+    public class InboxRepository
     {
     }
 }

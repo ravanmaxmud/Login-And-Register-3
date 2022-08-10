@@ -20,7 +20,7 @@ namespace Login_and_Register.Aplication_Locig
         public static void UserPanel(string email)
         {
             //Dictionary<BlogRepository, CommentRepository> keys = new Dictionary<BlogRepository, CommentRepository>();
-            //Repository<Comment, int> commentRepo = new Repository<Comment, int>();
+            Repository<Comment, int> commentRepo = new Repository<Comment, int>();
             BlogRepository blogRepository = new BlogRepository();
             Repository<Blog, string> blogrepo = new Repository<Blog, string>();
             UserRepo userRepo = new UserRepo();
@@ -154,6 +154,7 @@ namespace Login_and_Register.Aplication_Locig
                     Console.WriteLine("Please Enter Deleted Blog ID");
                     string id = Console.ReadLine();
                     Blog blog = blogrepo.GetById(id);
+                    Comment findComment = commentRepo.Get(a=>a.blog==blog);
                     if (blog == null)
                     {
                         Console.WriteLine("Please Enter User Id");
@@ -163,6 +164,7 @@ namespace Login_and_Register.Aplication_Locig
                         if (blog.FromUser == CurrentUser)
                         {
                             BlogRepository.Delete(blog);
+                            CommentRepository.Delete(findComment);
                             Console.WriteLine("Blog Removed Succesifully");
                         }
                         else

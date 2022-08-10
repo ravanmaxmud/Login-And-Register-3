@@ -36,7 +36,7 @@ namespace LoginAndRegister3.DataBase.Models
         }
         public string GetInfo()
         {
-            return $"FromUser :{FromUser.Email} {FromUser.FirstName} {FromUser.LastName} \n Blog Created Time : {DateTimeCreated}  \n Title : {Title} \n Blog : {TextContent}   \n BlogStatus {BlogStatus}   BlogId  {Id}";
+            return $"[====={FromUser.FirstName} {FromUser.LastName}] [{Id}] [{DateTimeCreated}]======\n====={Title}=====\n{TextContent}\n=={BlogStatus}==";
         }
         public string GetShortInfo()
         {

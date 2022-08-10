@@ -36,7 +36,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
                     isExpcetionExist = true;
                     Console.WriteLine("There are errors in the input you entered");
                 }
-            } while (isExpcetionExist || !BlogValidation.IsTitleCorrect(title));
+            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(title,10,35));
             return title;
         }
         public static string GetBlogContent()
@@ -60,7 +60,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
                     isExpcetionExist = true;
                     Console.WriteLine("There are errors in the input you entered");
                 }
-            } while (isExpcetionExist || !BlogValidation.IsContentCorrect(content));
+            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(content,20,45));
             return content;
         }
         public static void ShowBlogs()

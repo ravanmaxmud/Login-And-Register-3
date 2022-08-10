@@ -79,9 +79,6 @@ namespace Login_and_Register.Aplication_Locig
                     //    //}
                     //}
                     BlogService.ShowBlogs();
-                    BlogService.ShowBlogsWithComments();
-
-
                 }
                 else if (command == "/show-your-own-blog")
                 {

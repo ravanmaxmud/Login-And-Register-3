@@ -75,6 +75,26 @@ namespace LoginAndRegister3.AplicationLocig.Services
                 }
             }
         }
+        public static void ShowFiltiredBlogs()
+        {
+            List<Blog> blogss = blogRepo.GetAll();
+            Console.WriteLine("Please Enter Title");
+            string filtredTitle = Console.ReadLine();
+            foreach (Blog blog in blogss)
+            {
+                if (blog.Title.Contains(filtredTitle))
+                {
+                    if (blog.BlogStatus == BlogStatus.Sended)
+                    {
+                        Console.WriteLine(blog.GetInfo());
+                        foreach (Comment comment in commentRepo.GetAll(c => c.blog == blog))
+                        {
+                            Console.WriteLine(comment.GetInfo());
+                        }
+                    }
+                }
+            }
+        }
         public static void FindBlogByCode()
         {
             Console.WriteLine("Please Enter Searched Blog Code");

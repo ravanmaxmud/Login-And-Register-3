@@ -20,6 +20,7 @@ namespace Login_and_Register
                 Console.WriteLine("/register");
                 Console.WriteLine("/login");
                 Console.WriteLine("/show-blogs-with-comments");
+                Console.WriteLine("/show-filtered-blogs-with-comments");
                 Console.WriteLine("/find-blog-by-code");
                 Console.WriteLine("/exit");
 
@@ -36,7 +37,10 @@ namespace Login_and_Register
                 else if (command== "/show-blogs-with-comments")
                 {
                     BlogService.ShowBlogs();
-                    BlogService.ShowBlogsWithComments();
+                }
+                else if (command == "/show-filtered-blogs-with-comments")
+                {
+                    BlogService.ShowFiltiredBlogs();
                 }
                 else if (command == "/find-blog-by-code")
                 {

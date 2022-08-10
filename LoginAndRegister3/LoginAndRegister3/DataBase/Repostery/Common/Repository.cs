@@ -9,24 +9,36 @@ using System.Threading.Tasks;
 
 namespace LoginAndRegister3.DataBase.Repostery.Common
 {
-    public class Repository<TEntity,Tid>
+    public class Repository<TEntity, Tid>
         where TEntity : Entitiy<Tid>
     {
         protected static List<TEntity> DbContent { get; set; } = new List<TEntity>();
 
-        public  TEntity Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             DbContent.Add(entity);
             return entity;
         }
-        public static void Delete(TEntity entity) 
+        public static void Delete(TEntity entity)
         {
             DbContent.Remove(entity);
         }
 
-        public  List<TEntity> GetAll()
+        public List<TEntity> GetAll()
         {
             return DbContent;
+        }
+        public List<TEntity> GetAll(Predicate<TEntity> predicate)
+        {
+            List<TEntity> list = new List<TEntity>();
+            foreach (TEntity entity in DbContent)
+            {
+                if (predicate(entity))
+                {
+                    list.Add(entity);
+                }
+            }
+            return list;
         }
         public TEntity GetById(Tid id)
         {

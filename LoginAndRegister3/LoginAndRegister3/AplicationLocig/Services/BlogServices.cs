@@ -117,38 +117,5 @@ namespace LoginAndRegister3.AplicationLocig.Services
                 }
             }
         }
-        public static void ShowInbox()
-        {
-            List<Blog> blogs = blogRepo.GetAll();
-            List<Comment> comments = commentRepo.GetAll();
-            foreach (Blog blog in blogs)
-            {
-                if (blog.FromUser.Id == DashBoard.CurrentUser.Id)
-                {
-                    switch (blog.BlogStatus)
-                    {
-                        case BlogStatus.Accepted:
-                            Console.WriteLine($"Your Blog {blog.Id} Accepted");
-                            break;
-                        case BlogStatus.Rejected:
-                            Console.WriteLine($"Your Blog {blog.Id} Rejected");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                Console.WriteLine();
-                if (comments != null)
-                {
-                    foreach (Comment comment in comments)
-                    {
-                        if (comment.blog == blog)
-                        {
-                            Console.WriteLine($"Commented : {comment.GetInfo()}");
-                        }
-                    }
-                }
-            }
-        }
     }
 }

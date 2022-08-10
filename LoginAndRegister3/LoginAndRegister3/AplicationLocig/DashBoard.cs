@@ -24,6 +24,7 @@ namespace Login_and_Register.Aplication_Locig
             BlogRepository blogRepository = new BlogRepository();
             Repository<Blog, string> blogrepo = new Repository<Blog, string>();
             UserRepo userRepo = new UserRepo();
+            Repository<Inbox, int> inboxRepo = new Repository<Inbox, int>();
             List<Blog> blogs = blogrepo.GetAll();
             User user = userRepo.GetUserByEmail(email);
             Console.WriteLine(user.GetShortInfo());
@@ -188,11 +189,23 @@ namespace Login_and_Register.Aplication_Locig
                     {
                         //Comment comment = new Comment(CurrentUser, adedComment, blog);
                         CommentRepository.AddComment(CurrentUser, adedComment, blog);
+                        Inbox inbox = new Inbox($"This {blog.Id} comment added" , blog.FromUser);
+                        inboxRepo.Add(inbox);
+                        
                     }
                 }
                 else if (command == "/ShowInbox")
                 {
-                    BlogService.ShowInbox();
+                    List<Inbox> inboxes = inboxRepo.GetAll();
+                    int count = 1;
+                    foreach (Inbox inboxe in inboxes)
+                    {
+                        if (inboxe.UseR == CurrentUser)
+                        {
+                            Console.WriteLine($"{count}  {inboxe.Natification}");
+                            count++;
+                        }
+                    }
                 }
                 else
                 {
@@ -208,6 +221,7 @@ namespace Login_and_Register.Aplication_Locig
         public static void ModeratorPanel(string email)
         {
             UserRepo userRepo = new UserRepo();
+            Repository<Inbox,int> inboxRepo = new Repository<Inbox,int>();
             User user = userRepo.GetUserByEmail(email);
             Console.WriteLine(user.GetShortInfo());
             while (true)
@@ -243,7 +257,8 @@ namespace Login_and_Register.Aplication_Locig
                             if (chosedblog != null && chosedblog.BlogStatus == BlogStatus.Sended)
                             {
                                 chosedblog.BlogStatus = BlogStatus.Accepted;
-                                Console.WriteLine("Blog Has Been Acpted");
+                                Inbox message = new Inbox($"Blog {chosedblog.Id} Has Been Acpted",chosedblog.FromUser);
+                                inboxRepo.Add(message);
                             }
                         }
                     }
@@ -260,7 +275,8 @@ namespace Login_and_Register.Aplication_Locig
                             if (chosedblog != null && chosedblog.BlogStatus == BlogStatus.Sended)
                             {
                                 chosedblog.BlogStatus = BlogStatus.Rejected;
-                                Console.WriteLine("Blog Has Been Rejected");
+                                Inbox message = new Inbox($"Blog {chosedblog.Id} Has Been Rejected", chosedblog.FromUser);
+                                inboxRepo.Add(message);
                             }
                         }
                     }

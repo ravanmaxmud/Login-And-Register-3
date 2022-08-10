@@ -191,6 +191,7 @@ namespace Login_and_Register.Aplication_Locig
                         CommentRepository.AddComment(CurrentUser, adedComment, blog);
                         Inbox inbox = new Inbox($"This {blog.Id} comment added" , blog.FromUser);
                         inboxRepo.Add(inbox);
+                        Console.WriteLine("Comment Aded Succesifully");
                     }
                 }
                 else if (command == "/ShowInbox")

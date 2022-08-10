@@ -32,7 +32,7 @@ namespace LoginAndRegister3.DataBase.Models
         }
         public  string GetInfo()
         {
-            return $"FromUser : {FromUser.FirstName} {FromUser.LastName}  Comment : {CommentContent}";
+            return $"[{DateTimeCreated.ToString("dd.MM.yyyy")}] [{FromUser.FirstName} {FromUser.LastName}]  ===== {CommentContent}";
         }
 
     }

@@ -67,12 +67,14 @@ namespace LoginAndRegister3.AplicationLocig.Services
         public static void ShowBlogs()
         {
             List<Blog> blogss = blogRepo.GetAll();
+            int counter = 1;
             foreach (Blog blog in blogss)
             {
                 Console.WriteLine(blog.GetInfo());
                 foreach (Comment comment in commentRepo.GetAll(c => c.blog == blog))
                 {
-                    Console.WriteLine(comment.GetInfo());
+                    Console.WriteLine($"{counter} {comment.GetInfo()}");
+                    counter++;
                 }
             }
         }

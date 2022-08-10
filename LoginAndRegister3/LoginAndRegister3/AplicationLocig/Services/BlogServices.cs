@@ -1,4 +1,5 @@
-﻿using LoginAndRegister3.AplicationLocig.Validation;
+﻿using Login_and_Register.Aplication_Locig;
+using LoginAndRegister3.AplicationLocig.Validation;
 using LoginAndRegister3.DataBase.Models;
 using LoginAndRegister3.DataBase.Models.Enums;
 using LoginAndRegister3.DataBase.Repostery;
@@ -36,7 +37,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
                     isExpcetionExist = true;
                     Console.WriteLine("There are errors in the input you entered");
                 }
-            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(title,10,35));
+            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(title, 10, 35));
             return title;
         }
         public static string GetBlogContent()
@@ -60,7 +61,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
                     isExpcetionExist = true;
                     Console.WriteLine("There are errors in the input you entered");
                 }
-            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(content,20,45));
+            } while (isExpcetionExist || !BlogValidation.IsLenghtCorrect(content, 20, 45));
             return content;
         }
         public static void ShowBlogs()
@@ -69,7 +70,7 @@ namespace LoginAndRegister3.AplicationLocig.Services
             foreach (Blog blog in blogss)
             {
                 Console.WriteLine(blog.GetInfo());
-                foreach (Comment comment in commentRepo.GetAll(c=>c.blog == blog))
+                foreach (Comment comment in commentRepo.GetAll(c => c.blog == blog))
                 {
                     Console.WriteLine(comment.GetInfo());
                 }
@@ -112,6 +113,39 @@ namespace LoginAndRegister3.AplicationLocig.Services
                     if (id == blog.Id)
                     {
                         Console.WriteLine($"{blog.GetInfo()}");
+                    }
+                }
+            }
+        }
+        public static void ShowInbox()
+        {
+            List<Blog> blogs = blogRepo.GetAll();
+            List<Comment> comments = commentRepo.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                if (blog.FromUser.Id == DashBoard.CurrentUser.Id)
+                {
+                    switch (blog.BlogStatus)
+                    {
+                        case BlogStatus.Accepted:
+                            Console.WriteLine($"Your Blog {blog.Id} Accepted");
+                            break;
+                        case BlogStatus.Rejected:
+                            Console.WriteLine($"Your Blog {blog.Id} Rejected");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                Console.WriteLine();
+                if (comments != null)
+                {
+                    foreach (Comment comment in comments)
+                    {
+                        if (comment.blog == blog)
+                        {
+                            Console.WriteLine($"Commented : {comment.GetInfo()}");
+                        }
                     }
                 }
             }

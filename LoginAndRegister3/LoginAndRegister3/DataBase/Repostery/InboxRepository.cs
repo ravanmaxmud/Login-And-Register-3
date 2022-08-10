@@ -8,5 +8,6 @@ namespace LoginAndRegister3.DataBase.Repostery
 {
     public class InboxRepository
     {
+
     }
 }

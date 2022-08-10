@@ -29,7 +29,7 @@ namespace Login_and_Register.Aplication_Locig
             Console.WriteLine(user.GetShortInfo());
             while (true)
             {
-                Console.WriteLine("Please Enter Command  /logout or /updateInfo or /report or /addBlog or /show-blogs-with-comments or /show-your-own-blog or /updateBlog or /delete-blog or /add-comment");
+                Console.WriteLine("Please Enter Command  /logout or /updateInfo or /report or /addBlog or /show-blogs-with-comments or /show-your-own-blog or /updateBlog or /delete-blog or /add-comment  or /ShowInbox");
                 string command = Console.ReadLine();
                 if (command == "/logout")
                 {
@@ -188,6 +188,10 @@ namespace Login_and_Register.Aplication_Locig
                         CommentRepository.AddComment(CurrentUser, adedComment, blog);
                     }
                 }
+                else if (command == "/ShowInbox")
+                {
+                    BlogService.ShowInbox();
+                }
                 else
                 {
                     Console.WriteLine("Command Not Found Please Try Again");
@@ -206,13 +210,13 @@ namespace Login_and_Register.Aplication_Locig
             Console.WriteLine(user.GetShortInfo());
             while (true)
             {
+                Repository<Blog, string> blogRepo = new Repository<Blog, string>();
                 if (user is Moderator)
                 {
-                    Console.WriteLine("Command : /showBlog or /logout");
+                    Console.WriteLine("Command : /showBlog or /logout or  /AcceptBlog or  /RejectBlog");
                     string command = Console.ReadLine();
                     if (command == "/showBlog")
                     {
-                        Repository<Blog, string> blogRepo = new Repository<Blog, string>();
                         List<Blog> blogs = blogRepo.GetAll();
                         int counter = 1;
                         foreach (Blog blog in blogs)
@@ -223,7 +227,10 @@ namespace Login_and_Register.Aplication_Locig
                                 counter++;
                             }
                         }
-                        Console.WriteLine("Enter command for update blog status (/choose-blog-id)");
+                    }
+                    else if (command == "/AcceptBlog")
+                    {
+                        Console.WriteLine("Enter command for update blog status ( /choose-blog-id )");
                         string secondCommand = Console.ReadLine();
                         if (secondCommand == "/choose-blog-id")
                         {
@@ -233,23 +240,25 @@ namespace Login_and_Register.Aplication_Locig
 
                             if (chosedblog != null && chosedblog.BlogStatus == BlogStatus.Sended)
                             {
-                                Console.WriteLine("Chose Accepted or Rejected");
-                                string status = Console.ReadLine();
+                                chosedblog.BlogStatus = BlogStatus.Accepted;
+                                Console.WriteLine("Blog Has Been Acpted");
+                            }
+                        }
+                    }
+                    else if (command == "/RejectBlog")
+                    {
+                        Console.WriteLine("Enter command for update blog status ( /choose-blog-id )");
+                        string secondCommand = Console.ReadLine();
+                        if (secondCommand == "/choose-blog-id")
+                        {
+                            Console.WriteLine("Enter chosed blog id : ");
+                            string id = Console.ReadLine();
+                            Blog chosedblog = blogRepo.GetById(id);
 
-                                if (status == "Accepted")
-                                {
-                                    chosedblog.BlogStatus = BlogStatus.Accepted;
-
-                                }
-                                else if (status == "Rejected")
-                                {
-                                    chosedblog.BlogStatus = BlogStatus.Rejected;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Command not found");
-                                }
-
+                            if (chosedblog != null && chosedblog.BlogStatus == BlogStatus.Sended)
+                            {
+                                chosedblog.BlogStatus = BlogStatus.Rejected;
+                                Console.WriteLine("Blog Has Been Rejected");
                             }
                         }
                     }

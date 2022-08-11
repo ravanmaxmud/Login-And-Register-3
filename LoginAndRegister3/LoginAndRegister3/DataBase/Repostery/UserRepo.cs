@@ -22,16 +22,6 @@ namespace Login_and_Register.DataBase.Repostery
                 return _idCounter;
             }
         }
-        //public UserRepo()
-        //{
-        //    DbContent.AddRange(new List<User>()
-        //    {  new Admin("Super", "Admin", "admin@code.edu.az", "123321"),
-        //       new Admin("Aylo","Maqa","maqa@code.edu.az","123321"),
-        //       new Moderator("Ceyhun","Hacizade","ceyhun@code.edu.az","123321"),
-        //       new User("Revan", "Mahmood", "revan@code.edu.az", "123321"),
-        //       new User("Revan", "Mahmood", "eshqin@code.edu.az", "123321")
-        //    });
-        //}
         static UserRepo()
         {
             SeedUsers();
@@ -39,10 +29,8 @@ namespace Login_and_Register.DataBase.Repostery
         public static void SeedUsers()
         {
             DbContent.Add(new Admin("Super", "Admin", "admin@code.edu.az", "123321"));
-            DbContent.Add(new Admin("Aylo", "Maqa", "maqa@code.edu.az", "123321"));
             DbContent.Add(new Moderator("Ceyhun", "Hacizade", "ceyhun@code.edu.az", "123321"));
             DbContent.Add(new User("Revan", "Mahmood", "revan@code.edu.az", "123321"));
-            DbContent.Add(new User("Revan", "Mahmood", "eshqin@code.edu.az", "123321"));
         }
 
         public User AddUser(string firstName, string lastName, string email, string password)

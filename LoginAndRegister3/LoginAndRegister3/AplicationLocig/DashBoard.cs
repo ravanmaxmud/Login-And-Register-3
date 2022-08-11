@@ -259,6 +259,7 @@ namespace Login_and_Register.Aplication_Locig
                                 chosedblog.BlogStatus = BlogStatus.Accepted;
                                 Inbox message = new Inbox($"Blog {chosedblog.Id} Has Been Acpted",chosedblog.FromUser);
                                 inboxRepo.Add(message);
+                                Console.WriteLine("Blog Accepted");
                             }
                         }
                     }
@@ -277,6 +278,7 @@ namespace Login_and_Register.Aplication_Locig
                                 chosedblog.BlogStatus = BlogStatus.Rejected;
                                 Inbox message = new Inbox($"Blog {chosedblog.Id} Has Been Rejected", chosedblog.FromUser);
                                 inboxRepo.Add(message);
+                                Console.WriteLine("Blog Rejected");
                             }
                         }
                     }
